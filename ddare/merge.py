@@ -6,7 +6,7 @@ from typing import Optional
 
 from .const import EPSILON
 
-METHODS = ["lerp", "slerp", "slice", "cyclic", "gradient", "hslerp", "bislerp", "colorize", "cosine", "cubic", "scaled_add"]
+METHODS = ["lerp", "slerp", "slice", "cyclic", "gradient", "hslerp", "bislerp", "colorize", "cosine", "cubic", "scaled_add", "union"]
 
 def merge_tensors(method: str, v0: torch.Tensor, v1: torch.Tensor, t: float) -> torch.Tensor:
     if method == "lerp":
@@ -31,6 +31,8 @@ def merge_tensors(method: str, v0: torch.Tensor, v1: torch.Tensor, t: float) -> 
         return merge_tensors_cubic_interpolation(v0, v1, t)
     elif method == "scaled_add":
         return merge_tensors_scaled_add(v0, v1, t)
+    elif method == "union":
+        return merge_tensors_union(v0, v1, t)
     else:
         raise ValueError(f"Unknown merge method: {method}")
 
@@ -335,6 +337,15 @@ def merge_tensors_gradient(v0: torch.Tensor, v1: torch.Tensor, t: float) -> torc
     else:
         return v0
 
+def merge_tensors_union(v0: torch.Tensor, v1: torch.Tensor, t: float) -> torch.Tensor:
+    if v0.dim() == 2:
+        result = torch.zeros_like(v0)
+        for i in range(v0.shape[1]):
+            result[:, i] = v0[:, i] if i % 2 == 0 else v1[:, i]
+        return result
+    else:
+        return v0
+    
 def safe_normalize(tensor: torch.Tensor, eps: float = EPSILON):
     norm = tensor.norm()
     if norm > eps:
