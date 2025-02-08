@@ -4,7 +4,7 @@ Merge two checkpoint models by dare ties (https://github.com/yule-BUAA/MergeLM).
 Check out Noise Injection for a fun time, and the LoRA loader that can read the tags.
 
 # Method
-lerp (Linear Interpolation):
+### lerp (Linear Interpolation):
 
  – The simplest method that computes a weighted average of two vectors.
 
@@ -13,67 +13,67 @@ lerp (Linear Interpolation):
  – Useful for a straightforward blend between two latent states.
 
 
-slerp (Spherical Linear Interpolation):
+### slerp (Spherical Linear Interpolation):
 
  – Instead of a straight line in the latent space, slerp interpolates along the surface of a hypersphere.
 
  – This preserves the magnitude and directional properties of normalized vectors, which is often better for interpolating in a latent space.
 
 
-slice:
+### slice:
 
  – Typically refers to taking “slices” (i.e., segments) of a latent vector from one source and combining them with segments from another.
 
  – This method might be used to, for example, take the left half from one latent and the right half from another to form a composite image.
 
 
-cyclic:
+### cyclic:
 
  – A method that creates a cyclic or periodic blend, where the interpolation parameter “wraps around” (imagine a circular interpolation).
 
  – This can be useful for generating seamless loops or for blending multiple states in a repeating cycle.
 
 
-gradient:
+### gradient:
 
  – This approach uses the gradient (or directional change) between two latent states to drive the merging process.
 
  – It can allow the merging to be guided by the “direction” in which features change, rather than just averaging.
 
 
-hslerp:
+### hslerp:
 
  – A variant of slerp performed in a different space—commonly in the hue (H) channel of a color space like HSL.
 
  – This can be useful when the goal is to interpolate colors or preserve color characteristics while merging.
 
 
-bislerp:
+### bislerp:
 
  – Essentially a two-stage or “bi‑slerp” method. It may involve performing slerp in two segments (or along two dimensions) to better control the interpolation, often useful when combining more than two features or ensuring a smoother transition.
 
 
-colorize:
+### colorize:
  – A merging technique that emphasizes or transfers color information from one latent state to another.
 
  – Instead of a generic blend, it “colorizes” the output with the hues or color patterns of one component.
 
 
-cosine:
+### cosine:
 
  – Uses a cosine function to shape the interpolation curve.
 
  – The cosine curve typically starts and ends more smoothly compared to a linear blend, which can help produce a more natural transition.
 
 
-cubic:
+### cubic:
 
  – Applies cubic interpolation (using a cubic polynomial) to merge values.
 
  – This method provides a smoother, curved transition that can capture non-linear changes better than linear interpolation.
 
 
-scaled_add:
+### scaled_add:
 
  – Rather than averaging, this method adds one vector to another after scaling it by a factor.
 
